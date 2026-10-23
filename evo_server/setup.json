@@ -1,0 +1,114 @@
+{
+  "lang": "en",
+  "locale": "en-GB",
+  "user_id": "uevqjt7fhdla6w35",
+  "player_id": "10437025.7668166",
+  "casino_id": "ezugi00000000001",
+  "session_id": "uevqjt7fhdla6w35ufahdhrjkm6a7qmg6360b4940ece49062afa5d697f1c09bfdc2682b9cc994dad",
+  "bare_session_id": "uevqjt7fhdla6w35ufahdhrjkm6a7qmg6360b494",
+  "skin_id": "211",
+  "version": "",
+  "currencyCode": "INR",
+  "currencySymbol": "\u20b9",
+  "currencyMult": 100,
+  "currencyDecimals": 2,
+  "view": "view1",
+  "client": "SM_FLT",
+  "site": "211",
+  "clientApiV2": {
+    "release": "stable",
+    "enabledEvents": []
+  },
+  "AAMS": "0",
+  "wrapped": false,
+  "lobby": {
+    "version": "3",
+    "thumbnailsCdnHost": "bshots.2wn6hh6sd.click",
+    "rngEnabled": true,
+    "multiplayWidget": {
+      "chipStack": [
+        100,
+        500,
+        2500,
+        5000,
+        10000,
+        50000,
+        100000,
+        150000
+      ],
+      "defaultChip": 100,
+      "enabled": true,
+      "categoryIds": [
+        "baccarat",
+        "baccarat_sicbo"
+      ]
+    },
+    "brandingName": null,
+    "snippet": {
+      "enabled": false,
+      "showCashier": false
+    },
+    "sidePlay": {
+      "enabled": false,
+      "fullscreen": false
+    }
+  },
+  "chat": {
+    "serverHost": "ezugi.evo-games.com",
+    "showPrivateChat": true,
+    "screen.name": "ankitsaikia",
+    "messageCharacterLimit": 75,
+    "privateChatTranslationEnabled": true,
+    "windowTransparencyPercent": 75
+  },
+  "screenNameChanges": {
+    "enabled": true,
+    "count": 0,
+    "players-change-screen-name.limit.count": 3,
+    "players-change-screen-name.limit.time-frame.days": 90
+  },
+  "casinoConfig": {
+    "specificBets": [],
+    "maxOpenFrames": "4",
+    "html5MultiWindow": "true",
+    "flexPilot": "false",
+    "closedTableLastActivityIgnore": "false",
+    "freeGamesEnabled": "false",
+    "isCompatibleLauncherEnabled": "true",
+    "balancePushApiEnabled": false,
+    "gameIdInHistory": false,
+    "performanceMetricsEnabled": false,
+    "compliance": {
+      "mga": false,
+      "uk": false,
+      "ukWrapper": false,
+      "ukWrapperLiveSlots": false,
+      "aams": false,
+      "dk": false,
+      "swe": false,
+      "esp": false,
+      "de": false,
+      "deRtp": false,
+      "arg": false,
+      "caOn": false,
+      "forbidMultipleLiveSlots": false,
+      "betExceedMinimumNotification": false,
+      "showPaytableAndRtpOnStartup": false,
+      "autoplayWithLimits": false,
+      "askAutomaticDecisionsConsent": false,
+      "jurisdictionId": "CW"
+    },
+    "gameClientUrl": "/frontend/evo/r3/"
+  },
+  "geo": {
+    "country": "IN"
+  },
+  "abTestingIds": [],
+  "globalSettings": "{}",
+  "video.token.issuer": "L1y6qreNLS",
+  "localization": {
+    "enableLanguageSwitcher": true
+  },
+  "branding": "view1:lobby",
+  "baccarat_multitable_ws_encryption": "1:3"
+}

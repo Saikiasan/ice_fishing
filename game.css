@@ -1,0 +1,669 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #03080e;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Master Casino Viewport Container (Locks exact portrait aspect ratio) */
+#casino-viewport {
+  width: 397px;
+  height: 870px;
+  max-height: 98vh;
+  max-width: calc(98vh * (397 / 870));
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 210, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Studio Stage Layer with Real Background */
+#studio-stage {
+  width: 397px;
+  height: 870px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  background-image: url('extracted_assets/game_ui/table_background.png');
+  background-size: 397px 870px;
+  background-repeat: no-repeat;
+}
+
+/* 1. Presenter TV Window (Top-Left) */
+#presenter-box {
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  width: 95px;
+  height: 77px;
+  z-index: 20;
+}
+
+.presenter-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.dealer-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.live-rec-indicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  background: #ff3344;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff3344;
+  animation: liveBlink 1.2s infinite;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* 2. Top Flapper Assembly */
+#flapper-assembly {
+  position: absolute;
+  top: 8px;
+  left: 165px;
+  width: 68px;
+  height: 85px;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.flapper-bracket {
+  width: 100%;
+  height: 100%;
+  background-image: url('extracted_assets/game_ui/flapper.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.flapper-needle {
+  position: absolute;
+  top: 52px;
+  left: 26px;
+  width: 16px;
+  height: 30px;
+  object-fit: contain;
+  transform-origin: top center;
+  transition: transform 0.04s ease-out;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+/* 3. Wheel Viewport & Canvas */
+#wheel-viewport {
+  position: absolute;
+  top: 102px;
+  left: 12.5px;
+  width: 372px;
+  height: 372px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wheel-canvas {
+  width: 372px;
+  height: 372px;
+  display: block;
+  border-radius: 50%;
+}
+
+/* Bolted steel outer rim overlay */
+.bolted-rim-overlay {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  pointer-events: none;
+  border-radius: 50%;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.7);
+  z-index: 12;
+}
+
+/* Golden Multipliers Layer (Official leaf-gold.png) */
+#golden-multipliers-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.golden-mult-tag {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffea00;
+  font-weight: 900;
+  font-size: 13px;
+  text-shadow: 0 1px 3px #000, 0 0 10px rgba(255, 234, 0, 0.8);
+  transform: translate(-50%, -50%);
+  animation: multGlow 1.5s infinite alternate;
+}
+
+.golden-leaf-img {
+  width: 28px;
+  height: 34px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px #ffd700);
+}
+
+@keyframes multGlow {
+  from { filter: brightness(1); transform: translate(-50%, -50%) scale(1); }
+  to { filter: brightness(1.3); transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* 4. Center Notification Banner */
+.status-banner {
+  position: absolute;
+  top: 494px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(22, 48, 70, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  padding: 6px 20px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #d8edf8;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  pointer-events: none;
+}
+
+.status-banner.open {
+  border-color: #00ff88;
+  color: #00ff88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.status-banner.spinning {
+  border-color: #00d2ff;
+  color: #00d2ff;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+.banner-timer {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 900;
+}
+
+/* 5. Betting Touch Layer (Mapped precisely over authentic buttons) */
+#betting-touch-layer {
+  position: absolute;
+  top: 648px;
+  left: 0;
+  width: 397px;
+  height: 128px;
+  z-index: 35;
+}
+
+.touch-row {
+  position: absolute;
+  display: flex;
+}
+
+.leaf-row {
+  top: 2px;
+  left: 83px;
+  gap: 3px;
+}
+
+.fish-row {
+  top: 45px;
+  left: 63px;
+  gap: 6px;
+}
+
+.bet-touch-target {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.1s, filter 0.1s;
+}
+
+.bet-touch-target:hover .spot-hover-highlight {
+  opacity: 0.3;
+}
+
+.bet-touch-target:active {
+  transform: scale(0.96);
+}
+
+.target-leaf1, .target-leaf2 {
+  width: 112px;
+  height: 40px;
+}
+
+.target-blues, .target-oranges, .target-reds {
+  width: 85px;
+  height: 82px;
+}
+
+.spot-hover-highlight {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 8px;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+/* Placed Chip Badge Token */
+.chip-holder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 40;
+}
+
+.chip-holder.hidden {
+  display: none;
+}
+
+.chip-token {
+  background: radial-gradient(circle, #ffe600, #d49a00);
+  border: 2px dashed #fff;
+  color: #000;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 7px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+  font-family: 'Share Tech Mono', monospace;
+  animation: chipBounce 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes chipBounce {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* 6. Floating Chip Selector Rack */
+.floating-chip-rack {
+  position: absolute;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(4, 15, 25, 0.92);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  border-radius: 24px;
+  padding: 4px 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  z-index: 50;
+  transition: all 0.3s;
+}
+
+.chip-item {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  cursor: pointer;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.chip-item:hover {
+  transform: translateY(-3px) scale(1.08);
+}
+
+.chip-item.active {
+  transform: translateY(-5px) scale(1.15);
+  border-color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
+}
+
+.chip-10 { background: radial-gradient(circle, #2563eb, #1d4ed8); }
+.chip-50 { background: radial-gradient(circle, #059669, #047857); }
+.chip-100 { background: radial-gradient(circle, #dc2626, #b91c1c); }
+.chip-500 { background: radial-gradient(circle, #7c3aed, #6d28d9); }
+.chip-1000 { background: radial-gradient(circle, #d97706, #b45309); }
+
+/* 7. Quick Actions */
+.quick-actions {
+  position: absolute;
+  top: 605px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 45;
+}
+
+.qa-btn {
+  background: rgba(10, 26, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.qa-btn:hover {
+  background: rgba(0, 210, 255, 0.25);
+  border-color: #00d2ff;
+}
+
+.qa-btn.text-btn {
+  color: #ffcc00;
+  border-color: rgba(255, 204, 0, 0.4);
+}
+
+.qa-btn.spin-btn {
+  background: linear-gradient(135deg, #00d2ff, #0066cc);
+  border: none;
+  padding: 5px 14px;
+}
+
+/* 8. Studio Footer Bar */
+#studio-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 397px;
+  height: 95px;
+  z-index: 30;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px 14px 12px;
+}
+
+.circle-btn-reload {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.circle-btn-menu {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-center-info {
+  position: absolute;
+  left: 60px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chat-ticker {
+  font-size: 10px;
+  color: #fff;
+  display: flex;
+  gap: 4px;
+}
+
+.chat-user {
+  font-weight: 700;
+  color: #9cbacf;
+}
+
+.chat-msg {
+  color: #fff;
+  font-weight: 700;
+}
+
+.balance-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.stat-label {
+  color: #fff;
+  font-weight: 700;
+}
+
+.stat-val.yellow {
+  color: #ffea00;
+  font-weight: 800;
+}
+
+.stat-separator {
+  width: 6px;
+}
+
+.footer-right-info {
+  position: absolute;
+  right: 58px;
+  bottom: 12px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.round-id {
+  font-size: 10px;
+  color: #9cbacf;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.limits-text {
+  font-size: 11px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.limits-text .yellow {
+  color: #ffea00;
+  font-weight: 800;
+}
+
+/* 9. Win Notification Splash */
+.win-notification {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 80;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(3, 11, 18, 0.7);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s;
+}
+
+.win-notification.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.win-card-popup {
+  background: linear-gradient(135deg, #0e293f, #051420);
+  border: 2px solid #00d2ff;
+  border-radius: 16px;
+  padding: 24px 36px;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(0, 210, 255, 0.5);
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.win-label {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #fff;
+}
+
+.win-multiplier-badge {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffea00;
+  margin: 6px 0;
+  text-shadow: 0 0 15px rgba(255, 234, 0, 0.8);
+}
+
+.win-amount-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: #00ff88;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* 10. Bonus Fishing Minigame Overlay */
+.bonus-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  background: rgba(2, 9, 16, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bonus-overlay.hidden {
+  display: none;
+}
+
+.bonus-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.bonus-header-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #00d2ff;
+  letter-spacing: 1px;
+}
+
+.bonus-sub {
+  font-size: 11px;
+  color: #8bb2cf;
+}
+
+.bonus-hole-circle {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hole-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.official-jumping-fish {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.9));
+  animation: floatFish 2s infinite ease-in-out;
+}
+
+@keyframes floatFish {
+  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+  50% { transform: translate(-50%, -62%) rotate(-5deg); }
+}
+
+.bonus-mult-reveal {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34px;
+  font-weight: 900;
+  color: #ffea00;
+  text-shadow: 0 0 15px #ffd700, 0 2px 4px #000;
+}
+
+.reel-btn {
+  background: linear-gradient(135deg, #ffcc00, #ff7700);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 10px 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 119, 0, 0.6);
+}

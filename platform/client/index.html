@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Gaming Platform - Official Lobby</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #0b111e; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .neon-border { box-shadow: 0 0 15px rgba(56, 189, 248, 0.25); }
+    .ice-gradient { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+    .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="glass-panel sticky top-0 z-50 px-6 py-4 flex items-center justify-between border-b border-slate-800">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl font-bold border border-cyan-500/30">
+        <i class="fa-solid fa-icicles"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-black tracking-wider text-cyan-400">ICE PLATFORM</h1>
+        <p class="text-xs text-slate-400">Next-Gen Real-Money Gaming Hub</p>
+      </div>
+    </div>
+
+    <!-- User / Auth Controls -->
+    <div id="nav-auth-section" class="flex items-center gap-4">
+      <div id="guest-controls" class="flex items-center gap-3">
+        <button onclick="openModal('login-modal')" class="px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white transition">Sign In</button>
+        <button onclick="openModal('register-modal')" class="px-5 py-2 text-sm font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-lg shadow-lg shadow-cyan-500/20 transition">Register</button>
+      </div>
+
+      <div id="user-controls" class="hidden flex items-center gap-4">
+        <!-- Balance Pill -->
+        <div class="flex items-center gap-2 bg-slate-900 border border-slate-700/80 px-4 py-1.5 rounded-full">
+          <i class="fa-solid fa-wallet text-emerald-400 text-sm"></i>
+          <span class="text-xs text-slate-400">Balance:</span>
+          <span id="user-balance" class="text-sm font-bold text-emerald-400">$0.00</span>
+        </div>
+
+        <button onclick="openModal('cashier-modal')" class="px-3.5 py-1.5 text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-md transition flex items-center gap-1.5">
+          <i class="fa-solid fa-plus"></i> Cashier
+        </button>
+
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold text-xs" id="avatar-initials">U</div>
+          <span id="username-display" class="text-sm font-medium text-slate-200">User</span>
+          <button onclick="logout()" class="text-slate-400 hover:text-rose-400 text-xs ml-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Platform Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-8">
+
+    <!-- Promotional Hero Banner -->
+    <div class="relative rounded-2xl overflow-hidden p-8 border border-cyan-500/30 ice-gradient shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-3 z-10 max-w-xl">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-900/60 text-cyan-200 border border-cyan-400/30">FEATURED TITLE</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Ice Fishing: High Latency Multiplayer Catch</h2>
+        <p class="text-cyan-100 text-sm leading-relaxed">Cast into the sub-zero ice hole, match with other anglers in real time, and hook up to 100x King Sturgeons with our instant server-authoritative payouts.</p>
+        <button onclick="launchIceFishing()" class="mt-4 px-6 py-3 bg-white hover:bg-slate-100 text-slate-950 font-black rounded-xl shadow-lg transition flex items-center gap-2">
+          <i class="fa-solid fa-play text-cyan-600"></i> PLAY ICE FISHING NOW
+        </button>
+      </div>
+      <div class="text-8xl text-cyan-200/40 hidden md:block">
+        <i class="fa-solid fa-fish"></i>
+      </div>
+    </div>
+
+    <!-- Games Library Grid -->
+    <div>
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold tracking-wide flex items-center gap-2">
+          <i class="fa-solid fa-gamepad text-cyan-400"></i> Platform Game Catalog
+        </h3>
+        <span class="text-xs text-slate-400">1 Live Game • More in Development</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Game Card 1: Ice Fishing -->
+        <div class="glass-panel rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition duration-300 group flex flex-col">
+          <div class="h-44 bg-slate-900 relative flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10"></div>
+            <i class="fa-solid fa-snowflake text-6xl text-cyan-500/20 group-hover:scale-110 transition duration-500"></i>
+            <span class="absolute top-3 right-3 z-20 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">ONLINE</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-lg text-slate-100">Ice Fishing Real-Money</h4>
+                <span class="text-xs font-semibold text-cyan-400">RTP 96.5%</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Multiplayer ice angling with live multipliers and instant cashout settlement.</p>
+            </div>
+            <button onclick="launchIceFishing()" class="w-full py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition">
+              Launch Game
+            </button>
+          </div>
+        </div>
+
+        <!-- Placeholder Coming Soon 1 -->
+        <div class="glass-panel rounded-xl overflow-hidden border border-slate-800/60 opacity-60 flex flex-col">
+          <div class="h-44 bg-slate-900/60 flex items-center justify-center">
+            <i class="fa-solid fa-rocket text-5xl text-slate-700"></i>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h4 class="font-bold text-lg text-slate-300">Ice Crash 3D</h4>
+              <p class="text-xs text-slate-500 mt-1">Multiplier curve crash game built for the Ice Platform RGS protocol.</p>
+            </div>
+            <button disabled class="w-full py-2.5 rounded-lg bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed">
+              Coming Soon
+            </button>
+          </div>
+        </div>
+
+        <!-- Placeholder Coming Soon 2 -->
+        <div class="glass-panel rounded-xl overflow-hidden border border-slate-800/60 opacity-60 flex flex-col">
+          <div class="h-44 bg-slate-900/60 flex items-center justify-center">
+            <i class="fa-solid fa-dice text-5xl text-slate-700"></i>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h4 class="font-bold text-lg text-slate-300">Frost Dice</h4>
+              <p class="text-xs text-slate-500 mt-1">Provably fair classic dice roll with automated betting pipelines.</p>
+            </div>
+            <button disabled class="w-full py-2.5 rounded-lg bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed">
+              Coming Soon
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Game Launcher Overlay / Screen -->
+  <div id="game-modal" class="fixed inset-0 bg-slate-950/95 z-50 hidden flex flex-col">
+    <div class="glass-panel px-6 py-3 flex items-center justify-between border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <span class="text-cyan-400 font-bold flex items-center gap-2"><i class="fa-solid fa-fish"></i> Ice Fishing Live</span>
+        <span class="text-xs bg-slate-800 px-2.5 py-0.5 rounded text-slate-400" id="game-round-tag">Round #--</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-sm font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded border border-slate-800">
+          Balance: <span id="game-balance-display">$0.00</span>
+        </div>
+        <button onclick="closeGameModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    
+    <!-- Game Live Canvas / Play Screen -->
+    <div class="flex-1 relative flex flex-col lg:flex-row p-4 gap-4 overflow-hidden">
+      <!-- Angling Lake Canvas View -->
+      <div class="flex-1 bg-slate-900 rounded-xl border border-slate-800 flex flex-col relative overflow-hidden">
+        <!-- Live Lake Visual Animation Area -->
+        <div id="ice-lake" class="flex-1 relative flex flex-col items-center justify-center p-6 text-center">
+          <div id="round-status-badge" class="px-4 py-1.5 rounded-full text-xs font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase tracking-widest mb-6">
+            Connecting to RGS...
+          </div>
+
+          <div id="fishing-animation-stage" class="relative w-48 h-48 flex items-center justify-center">
+            <!-- Ice Hole Circle -->
+            <div class="w-40 h-40 rounded-full border-4 border-cyan-400/40 bg-sky-950/80 shadow-[inset_0_0_20px_rgba(56,189,248,0.5)] flex items-center justify-center relative">
+              <i id="stage-icon" class="fa-solid fa-water text-5xl text-cyan-400/50 animate-pulse"></i>
+            </div>
+          </div>
+
+          <h3 id="stage-headline" class="text-2xl font-black mt-6 text-slate-100">Waiting for Next Round</h3>
+          <p id="stage-subline" class="text-sm text-slate-400 mt-1">Get ready to place your bet</p>
+        </div>
+
+        <!-- Betting Controls Bar -->
+        <div class="p-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-400">BET AMOUNT:</span>
+            <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5">
+              <span class="text-emerald-400 font-bold mr-1">$</span>
+              <input id="bet-input" type="number" min="1" step="1" value="10" class="w-20 bg-transparent text-white font-bold outline-none text-sm">
+            </div>
+            <div class="flex gap-1.5">
+              <button onclick="setBet(5)" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-semibold">$5</button>
+              <button onclick="setBet(10)" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-semibold">$10</button>
+              <button onclick="setBet(25)" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-semibold">$25</button>
+              <button onclick="setBet(100)" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-semibold">$100</button>
+            </div>
+          </div>
+
+          <button id="btn-place-bet" onclick="placeBet()" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-cyan-500/20">
+            PLACE BET ($10)
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Multiplayer & Round History Feed -->
+      <div class="w-full lg:w-80 bg-slate-900 rounded-xl border border-slate-800 p-4 flex flex-col space-y-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+          <span>Live Round Feed</span>
+          <i class="fa-solid fa-users text-cyan-400"></i>
+        </h4>
+        <div id="game-feed" class="flex-1 overflow-y-auto space-y-2 text-xs font-mono pr-1 max-h-96">
+          <div class="p-2 bg-slate-950/60 rounded text-slate-400">System: Ready to play.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cashier Modal (Deposit & Withdraw) -->
+  <div id="cashier-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-slate-800 space-y-5">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-wallet text-emerald-400"></i> Cashier</h3>
+        <button onclick="closeModal('cashier-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="flex border-b border-slate-800">
+        <button id="tab-deposit-btn" onclick="switchCashierTab('deposit')" class="flex-1 py-2 text-sm font-bold text-cyan-400 border-b-2 border-cyan-400">Deposit</button>
+        <button id="tab-withdraw-btn" onclick="switchCashierTab('withdraw')" class="flex-1 py-2 text-sm font-semibold text-slate-400 hover:text-slate-200">Withdraw</button>
+      </div>
+
+      <!-- Deposit Form -->
+      <div id="cashier-deposit-content" class="space-y-4">
+        <div>
+          <label class="text-xs font-semibold text-slate-400 block mb-1">Deposit Amount (USD)</label>
+          <input id="deposit-amount" type="number" value="100" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-400 block mb-1">Local Fiat Method</label>
+          <select id="deposit-method" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm outline-none">
+            <option value="fiat_card">Instant Debit / Credit Card</option>
+            <option value="bank_transfer">Instant Bank Transfer / SEPA / UPI</option>
+            <option value="admin_cash">Local Cash Agent / Voucher</option>
+          </select>
+        </div>
+        <button onclick="executeDeposit()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition text-sm">
+          Confirm Deposit
+        </button>
+      </div>
+
+      <!-- Withdraw Form -->
+      <div id="cashier-withdraw-content" class="space-y-4 hidden">
+        <div>
+          <label class="text-xs font-semibold text-slate-400 block mb-1">Withdraw Amount (USD)</label>
+          <input id="withdraw-amount" type="number" value="50" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-400 block mb-1">Payout Account Details</label>
+          <input id="withdraw-details" type="text" placeholder="Account Number / IBAN / Phone" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm outline-none focus:border-cyan-400">
+        </div>
+        <button onclick="executeWithdraw()" class="w-full py-3 bg-rose-500 hover:bg-rose-400 text-white font-bold rounded-xl transition text-sm">
+          Request Payout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign In Modal -->
+  <div id="login-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-sm rounded-2xl p-6 border border-slate-800 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Sign In</h3>
+        <button onclick="closeModal('login-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Username</label>
+          <input id="login-username" type="text" value="player1" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white outline-none">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Password</label>
+          <input id="login-password" type="password" value="player123" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white outline-none">
+        </div>
+        <button onclick="submitLogin()" class="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg transition text-sm">
+          Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="register-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-sm rounded-2xl p-6 border border-slate-800 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Create Account</h3>
+        <button onclick="closeModal('register-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Username</label>
+          <input id="reg-username" type="text" placeholder="Choose username" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white outline-none">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Password</label>
+          <input id="reg-password" type="password" placeholder="At least 6 chars" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white outline-none">
+        </div>
+        <button onclick="submitRegister()" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg transition text-sm">
+          Create & Get $100 Welcome
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CORE_API = 'http://localhost:8000';
+    let currentUser = null;
+    let sessionToken = localStorage.getItem('plat_token') || null;
+    let gameWs = null;
+
+    // --- Modal Management ---
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    function switchCashierTab(tab) {
+      if (tab === 'deposit') {
+        document.getElementById('cashier-deposit-content').classList.remove('hidden');
+        document.getElementById('cashier-withdraw-content').classList.add('hidden');
+        document.getElementById('tab-deposit-btn').className = "flex-1 py-2 text-sm font-bold text-cyan-400 border-b-2 border-cyan-400";
+        document.getElementById('tab-withdraw-btn').className = "flex-1 py-2 text-sm font-semibold text-slate-400 hover:text-slate-200";
+      } else {
+        document.getElementById('cashier-deposit-content').classList.add('hidden');
+        document.getElementById('cashier-withdraw-content').classList.remove('hidden');
+        document.getElementById('tab-withdraw-btn').className = "flex-1 py-2 text-sm font-bold text-rose-400 border-b-2 border-rose-400";
+        document.getElementById('tab-deposit-btn').className = "flex-1 py-2 text-sm font-semibold text-slate-400 hover:text-slate-200";
+      }
+    }
+
+    // --- Auth & Session ---
+    async function initAuth() {
+      if (!sessionToken) {
+        showGuestUI();
+        return;
+      }
+      try {
+        const res = await fetch(`${CORE_API}/api/v1/auth/me`, {
+          headers: { 'Authorization': `Bearer ${sessionToken}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          currentUser = data.user;
+          showUserUI();
+        } else {
+          logout();
+        }
+      } catch (err) {
+        console.warn('Backend not yet reachable', err);
+      }
+    }
+
+    function showUserUI() {
+      document.getElementById('guest-controls').classList.add('hidden');
+      document.getElementById('user-controls').classList.remove('hidden');
+      document.getElementById('username-display').textContent = currentUser.username;
+      document.getElementById('avatar-initials').textContent = currentUser.username[0].toUpperCase();
+      updateBalanceUI(currentUser.balance);
+    }
+
+    function showGuestUI() {
+      document.getElementById('guest-controls').classList.remove('hidden');
+      document.getElementById('user-controls').classList.add('hidden');
+    }
+
+    function updateBalanceUI(val) {
+      const formatted = `$${Number(val).toFixed(2)}`;
+      document.getElementById('user-balance').textContent = formatted;
+      document.getElementById('game-balance-display').textContent = formatted;
+      if (currentUser) currentUser.balance = val;
+    }
+
+    async function submitLogin() {
+      const u = document.getElementById('login-username').value;
+      const p = document.getElementById('login-password').value;
+      try {
+        const res = await fetch(`${CORE_API}/api/v1/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          sessionToken = data.token;
+          localStorage.setItem('plat_token', sessionToken);
+          currentUser = data.user;
+          closeModal('login-modal');
+          showUserUI();
+        } else {
+          alert(data.detail || 'Login failed');
+        }
+      } catch (err) {
+        alert('Could not connect to Platform Core');
+      }
+    }
+
+    async function submitRegister() {
+      const u = document.getElementById('reg-username').value;
+      const p = document.getElementById('reg-password').value;
+      try {
+        const res = await fetch(`${CORE_API}/api/v1/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p, initial_deposit: 100.0 })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          sessionToken = data.token;
+          localStorage.setItem('plat_token', sessionToken);
+          currentUser = data.user;
+          closeModal('register-modal');
+          showUserUI();
+        } else {
+          alert(data.detail || 'Registration failed');
+        }
+      } catch (err) {
+        alert('Could not connect to Platform Core');
+      }
+    }
+
+    function logout() {
+      sessionToken = null;
+      currentUser = null;
+      localStorage.removeItem('plat_token');
+      showGuestUI();
+    }
+
+    // --- Cashier ---
+    async function executeDeposit() {
+      const amt = parseFloat(document.getElementById('deposit-amount').value);
+      const method = document.getElementById('deposit-method').value;
+      const res = await fetch(`${CORE_API}/api/v1/cashier/deposit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
+        body: JSON.stringify({ amount: amt, payment_method: method })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        updateBalanceUI(data.transaction.balance_after);
+        closeModal('cashier-modal');
+        alert(`Successfully deposited $${amt.toFixed(2)}`);
+      } else {
+        alert(data.detail || 'Deposit error');
+      }
+    }
+
+    async function executeWithdraw() {
+      const amt = parseFloat(document.getElementById('withdraw-amount').value);
+      const details = document.getElementById('withdraw-details').value;
+      const res = await fetch(`${CORE_API}/api/v1/cashier/withdraw`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
+        body: JSON.stringify({ amount: amt, payout_details: details })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        updateBalanceUI(data.transaction.balance_after);
+        closeModal('cashier-modal');
+        alert(`Withdrawal request processed for $${amt.toFixed(2)}`);
+      } else {
+        alert(data.detail || 'Withdrawal error');
+      }
+    }
+
+    // --- Ice Fishing Game Integration ---
+    async function launchIceFishing() {
+      if (!currentUser) {
+        openModal('login-modal');
+        return;
+      }
+
+      // Step 1: Handshake with Platform Core for Game Launch Token
+      try {
+        const res = await fetch(`${CORE_API}/api/v1/rgs/launch?game_id=ice_fishing`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${sessionToken}` }
+        });
+        const launchData = await res.json();
+        if (!res.ok) {
+          alert('Could not launch game');
+          return;
+        }
+
+        openModal('game-modal');
+        connectGameWebSocket(launchData.ws_url);
+      } catch (err) {
+        alert('RGS connection failed. Make sure server is running.');
+      }
+    }
+
+    function closeGameModal() {
+      if (gameWs) {
+        gameWs.close();
+        gameWs = null;
+      }
+      closeModal('game-modal');
+    }
+
+    function connectGameWebSocket(url) {
+      if (gameWs) gameWs.close();
+      gameWs = new WebSocket(url);
+
+      gameWs.onopen = () => {
+        logFeed("Connected to Remote Game Server (RGS).");
+      };
+
+      gameWs.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        handleRgsEvent(msg);
+      };
+
+      gameWs.onclose = () => {
+        logFeed("Disconnected from RGS.");
+      };
+    }
+
+    function handleRgsEvent(msg) {
+      const badge = document.getElementById('round-status-badge');
+      const headline = document.getElementById('stage-headline');
+      const subline = document.getElementById('stage-subline');
+      const icon = document.getElementById('stage-icon');
+      const btnBet = document.getElementById('btn-place-bet');
+
+      if (msg.event === 'JOIN_SUCCESS') {
+        document.getElementById('game-round-tag').textContent = `#${msg.round_id.slice(-6)}`;
+        updateBalanceUI(msg.balance);
+      }
+
+      if (msg.event === 'STATE_UPDATE') {
+        document.getElementById('game-round-tag').textContent = `#${msg.round_id.slice(-6)}`;
+        if (msg.state === 'WAITING_FOR_BETS') {
+          badge.className = "px-4 py-1.5 rounded-full text-xs font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase tracking-widest mb-6";
+          badge.textContent = `BETTING OPEN • ${msg.time_left}s`;
+          headline.textContent = "Drop Your Hook!";
+          subline.textContent = `Select your bet before countdown reaches zero.`;
+          icon.className = "fa-solid fa-water text-5xl text-cyan-400/50";
+          btnBet.disabled = false;
+          btnBet.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else if (msg.state === 'FISHING_ACTIVE') {
+          badge.className = "px-4 py-1.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-widest mb-6";
+          badge.textContent = `FISHING IN PROGRESS`;
+          headline.textContent = "Line Submerged In Ice Hole...";
+          subline.textContent = "Waiting for fish strikes on the sonar!";
+          icon.className = "fa-solid fa-spinner text-5xl text-amber-400 animate-spin";
+          btnBet.disabled = true;
+          btnBet.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+      }
+
+      if (msg.event === 'BET_CONFIRMED') {
+        updateBalanceUI(msg.new_balance);
+        logFeed(`Bet placed: $${msg.bet_amount} on current round.`);
+      }
+
+      if (msg.event === 'BET_ERROR') {
+        alert(msg.message);
+      }
+
+      if (msg.event === 'ROUND_RESULT') {
+        const outcome = msg.outcome;
+        badge.className = "px-4 py-1.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest mb-6";
+        badge.textContent = `RESULT SETTLED`;
+
+        if (outcome.caught) {
+          headline.textContent = `${outcome.fish}! (${outcome.multiplier}x)`;
+          headline.className = "text-2xl font-black mt-6 text-emerald-400";
+          subline.textContent = outcome.message;
+          icon.className = "fa-solid fa-fish text-6xl text-emerald-400 animate-bounce";
+        } else {
+          headline.textContent = "Nothing Caught";
+          headline.className = "text-2xl font-black mt-6 text-rose-400";
+          subline.textContent = outcome.message;
+          icon.className = "fa-solid fa-skull text-5xl text-rose-400";
+        }
+
+        // Check if current user won
+        if (msg.payouts) {
+          msg.payouts.forEach(p => {
+            if (p.user_id === currentUser.id) {
+              updateBalanceUI(p.balance);
+              if (p.payout > 0) {
+                logFeed(`🎉 YOU WON $${p.payout.toFixed(2)} (${p.multiplier}x)!`);
+              } else {
+                logFeed(`Round ended: Loss`);
+              }
+            } else {
+              logFeed(`${p.username} won $${p.payout.toFixed(2)}`);
+            }
+          });
+        }
+      }
+    }
+
+    function setBet(val) {
+      document.getElementById('bet-input').value = val;
+      document.getElementById('btn-place-bet').textContent = `PLACE BET ($${val})`;
+    }
+
+    document.getElementById('bet-input').addEventListener('input', (e) => {
+      document.getElementById('btn-place-bet').textContent = `PLACE BET ($${e.target.value || 0})`;
+    });
+
+    function placeBet() {
+      if (!gameWs || gameWs.readyState !== WebSocket.OPEN) {
+        alert('Game disconnected');
+        return;
+      }
+      const amt = parseFloat(document.getElementById('bet-input').value);
+      gameWs.send(JSON.stringify({ action: 'PLACE_BET', amount: amt }));
+    }
+
+    function logFeed(text) {
+      const feed = document.getElementById('game-feed');
+      const item = document.createElement('div');
+      item.className = "p-2 bg-slate-950/60 rounded text-slate-300 border border-slate-800/60";
+      item.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+      feed.prepend(item);
+    }
+
+    window.onload = initAuth;
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Evolution Ice Fishing - 100% Authentic Replica</title>
+  <link rel="stylesheet" href="game.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Centered Live Studio Container (Exact Portrait Aspect Ratio) -->
+  <div id="casino-viewport">
+    
+    <!-- Authentic Studio Frame Layer -->
+    <div id="studio-stage">
+
+      <!-- 1. Presenter Video / Live Studio Camera (Top Left) -->
+      <div id="presenter-box">
+        <div class="presenter-frame">
+          <img src="extracted_assets/game_ui/dealer_frame.png" class="dealer-img" alt="Presenter">
+          <div class="live-rec-indicator"></div>
+        </div>
+      </div>
+
+      <!-- 2. Official Flapper Assembly (Top Center) -->
+      <div id="flapper-assembly">
+        <div class="flapper-bracket"></div>
+        <!-- Official Evolution Flapper Needle Sprite -->
+        <img src="official_assets/sprites/flapper.png" id="flapper-needle" class="flapper-needle" alt="Flapper">
+      </div>
+
+      <!-- 3. The 53-Sector Rotating Wheel with Official Center & Rim -->
+      <div id="wheel-viewport">
+        <!-- Bolted Steel Rim -->
+        <div class="bolted-rim-overlay"></div>
+
+        <!-- Rotating Canvas Disc (Official Sprites + Physics) -->
+        <canvas id="wheel-canvas" width="372" height="372"></canvas>
+
+        <!-- Dynamic Multipliers Container (Official leaf-gold.png) -->
+        <div id="golden-multipliers-layer"></div>
+      </div>
+
+      <!-- 4. Central Phase Notification Banner ("NEXT GAME SOON" / "PLACE YOUR BETS") -->
+      <div id="status-banner" class="status-banner">
+        <span id="banner-text">PLACE YOUR BETS</span>
+        <span id="banner-timer" class="banner-timer">7s</span>
+      </div>
+
+      <!-- 5. Floating Interactive Betting Grid (Mapped Directly Over Authentic Buttons) -->
+      <div id="betting-touch-layer">
+        <!-- Row 1: White Leaf & Teal Leaf Pills with Official leaf1.png & leaf2.png -->
+        <div class="touch-row leaf-row">
+          <div class="bet-touch-target target-leaf1" data-spot="Leaf1">
+            <div class="spot-hover-highlight"></div>
+            <div class="chip-holder hidden" id="chip-spot-Leaf1">
+              <div class="chip-token">₹0</div>
+            </div>
+          </div>
+          <div class="bet-touch-target target-leaf2" data-spot="Leaf2">
+            <div class="spot-hover-highlight"></div>
+            <div class="chip-holder hidden" id="chip-spot-Leaf2">
+              <div class="chip-token">₹0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Lil' Blues, Big Oranges, Huge Reds Tiles -->
+        <div class="touch-row fish-row">
+          <div class="bet-touch-target target-blues" data-spot="LilBlues">
+            <div class="spot-hover-highlight"></div>
+            <div class="chip-holder hidden" id="chip-spot-LilBlues">
+              <div class="chip-token">₹0</div>
+            </div>
+          </div>
+          <div class="bet-touch-target target-oranges" data-spot="BigOranges">
+            <div class="spot-hover-highlight"></div>
+            <div class="chip-holder hidden" id="chip-spot-BigOranges">
+              <div class="chip-token">₹0</div>
+            </div>
+          </div>
+          <div class="bet-touch-target target-reds" data-spot="HugeReds">
+            <div class="spot-hover-highlight"></div>
+            <div class="chip-holder hidden" id="chip-spot-HugeReds">
+              <div class="chip-token">₹0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Floating Chip Selector Rack (Appears during Betting Phase) -->
+      <div id="floating-chip-rack" class="floating-chip-rack">
+        <div class="chip-item chip-10 active" data-val="10">₹10</div>
+        <div class="chip-item chip-50" data-val="50">₹50</div>
+        <div class="chip-item chip-100" data-val="100">₹100</div>
+        <div class="chip-item chip-500" data-val="500">₹500</div>
+        <div class="chip-item chip-1000" data-val="1000">₹1k</div>
+      </div>
+
+      <!-- 7. Quick Action Floating Buttons (Double, Undo, Bet All) -->
+      <div id="quick-actions" class="quick-actions">
+        <button id="qa-undo" class="qa-btn" title="Undo">↶</button>
+        <button id="qa-double" class="qa-btn" title="Double">2×</button>
+        <button id="qa-all-bonuses" class="qa-btn text-btn" title="Bet All Bonuses">🎣 ALL BONUSES</button>
+        <button id="qa-spin-now" class="qa-btn spin-btn" title="Spin Now">SPIN</button>
+      </div>
+
+      <!-- 8. Footer Telemetry & Live Chat Bar (Exact Evolution Layout) -->
+      <footer id="studio-footer">
+        <button id="btn-repeat" class="circle-btn-reload" title="Repeat Bet"></button>
+        
+        <div class="footer-center-info">
+          <div class="chat-ticker" id="chat-ticker">
+            <span class="chat-user">Dado12:</span>
+            <span class="chat-msg">Cmon really</span>
+          </div>
+          <div class="balance-line">
+            <span class="stat-label">Total Bet</span>
+            <span class="stat-val yellow" id="total-bet-val">₹0</span>
+            <span class="stat-separator"></span>
+            <span class="stat-label">Balance</span>
+            <span class="stat-val yellow" id="balance-val">₹1,000</span>
+          </div>
+        </div>
+
+        <div class="footer-right-info">
+          <div class="round-id" id="round-id-display"># 06:30:41</div>
+          <div class="limits-text">Ice Fishing <span class="yellow">₹5–250,000</span></div>
+        </div>
+
+        <button id="btn-menu" class="circle-btn-menu" title="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </footer>
+
+      <!-- 9. Win Splash Notification with Official Explosion & Coin particles -->
+      <div id="win-notification" class="win-notification hidden">
+        <div class="win-card-popup">
+          <div class="win-label" id="win-label">LIGHT LEAF</div>
+          <div class="win-multiplier-badge" id="win-multiplier-badge">1X</div>
+          <div class="win-amount-text" id="win-amount-text">+₹0.00</div>
+        </div>
+      </div>
+
+      <!-- 10. Official Underwater Bonus Minigame with Jumping Fish Sprites -->
+      <div id="bonus-overlay" class="bonus-overlay hidden">
+        <div class="bonus-box">
+          <div class="bonus-header-title" id="bonus-header-title">LIL' BLUES BONUS</div>
+          <div class="bonus-sub">Tap the ice hole to reel in your multiplier!</div>
+          <div class="bonus-hole-circle" id="bonus-hole-trigger">
+            <img src="official_assets/images/icerevealp.57d71c68.webp" class="hole-art" alt="Hole">
+            <!-- Official Jumping Fish Sprite -->
+            <img src="official_assets/images/lilbluesju.f094362e.webp" id="official-jumping-fish" class="official-jumping-fish" alt="Bonus Fish">
+            <div class="bonus-mult-reveal" id="bonus-mult-reveal">?</div>
+          </div>
+          <button id="btn-reel-in" class="reel-btn">🎣 REEL IN!</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

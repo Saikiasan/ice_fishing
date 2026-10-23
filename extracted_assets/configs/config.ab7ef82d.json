@@ -1,0 +1,415 @@
+{
+  "systemSize": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fps": 60,
+  "fixedDt": false,
+  "randomSeed": "",
+  "version": "0.0.1",
+  "timeScale": 1.5,
+  "blendMode": "default",
+  "controllerConfigs": {
+    "CANVAS_PARTICLES": {
+      "autoStart": false,
+      "loop": false,
+      "explosiveness": true,
+      "amount": 80,
+      "emissionDelay": 0,
+      "particlesPerWave": 80,
+      "particle": {
+        "colors": {
+          "gradient": false,
+          "mode": "Off",
+          "colors": [
+            "#67D411",
+            "#02AEE4",
+            "#C92EFF",
+            "#E40097"
+          ]
+        },
+        "damping": 1,
+        "gravityVector": [
+          0,
+          2000
+        ],
+        "directionVector": [
+          -2.0816681711721685e-17,
+          -1
+        ],
+        "spread": 11.086956521739125,
+        "angularVelocity": {
+          "min": 3.2608695652173916,
+          "max": 11.304347826086955,
+          "curve": []
+        },
+        "initialRotation": {
+          "min": 0,
+          "max": 0.6829549246934332,
+          "syncWithDirection": false
+        },
+        "opacity": {
+          "min": 1,
+          "max": 1,
+          "curve": [
+            {
+              "point": [
+                0,
+                1
+              ],
+              "easing": "linear"
+            },
+            {
+              "point": [
+                0.8,
+                1
+              ],
+              "easing": "linear"
+            },
+            {
+              "point": [
+                1,
+                0.02
+              ],
+              "easing": "linear"
+            }
+          ]
+        },
+        "lifetime": {
+          "min": 1.52,
+          "max": 2.5
+        },
+        "scale": {
+          "min": 0.1,
+          "max": 0.19999999999999998,
+          "curve": [
+            {
+              "point": [
+                0,
+                1
+              ],
+              "easing": "linear"
+            },
+            {
+              "point": [
+                1,
+                1
+              ],
+              "easing": "linear"
+            }
+          ]
+        },
+        "initialVelocity": {
+          "min": 782.6826086956522,
+          "max": 1760.9108695652176
+        },
+        "linearAcceleration": {
+          "min": 0,
+          "max": -304,
+          "curve": [
+            {
+              "point": [
+                0,
+                2
+              ],
+              "easing": "linear"
+            },
+            {
+              "point": [
+                1,
+                1.09
+              ],
+              "easing": "easeOutSine"
+            }
+          ]
+        },
+        "tangentialAcceleration": {
+          "min": 0,
+          "max": 0,
+          "curve": []
+        },
+        "radialAcceleration": {
+          "min": 0,
+          "max": 522,
+          "curve": []
+        },
+        "maxVelocity": {
+          "min": 14.999999999999982,
+          "max": 1173.91,
+          "enabled": false
+        }
+      },
+      "emitter": {
+        "position": [
+          0.5,
+          0.5
+        ],
+        "type": "ellipse",
+        "width": 70,
+        "height": 0
+      }
+    }
+  },
+  "graphicsConfig": {
+    "CANVAS_PARTICLES": {
+      "zIndex": 0,
+      "textures": [
+        {
+          "textureId": "coinsSpriteSheet",
+          "fps": 60,
+          "randomFrameStart": true,
+          "frames": [
+            {
+              "frame": {
+                "h": 148,
+                "w": 148,
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 146,
+                "x": 300,
+                "y": 0
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 144,
+                "x": 298,
+                "y": 150
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 140,
+                "x": 146,
+                "y": 300
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 134,
+                "x": 0,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 128,
+                "x": 136,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 118,
+                "x": 430,
+                "y": 300
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 110,
+                "x": 388,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 98,
+                "x": 112,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 88,
+                "x": 500,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 149,
+                "w": 76,
+                "x": 402,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 62,
+                "x": 574,
+                "y": 150
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 46,
+                "x": 590,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 32,
+                "x": 542,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 18,
+                "x": 610,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 32,
+                "x": 576,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 46,
+                "x": 584,
+                "y": 0
+              }
+            },
+            {
+              "frame": {
+              "h": 148,
+              "w": 60,
+              "x": 480,
+              "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 76,
+                "x": 550,
+                "y": 300
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 88,
+                "x": 312,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 98,
+                "x": 212,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 110,
+                "x": 0,
+                "y": 600
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 120,
+                "x": 266,
+                "y": 450
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 128,
+                "x": 444,
+                "y": 150
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 134,
+                "x": 448,
+                "y": 0
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 140,
+                "x": 288,
+                "y": 300
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 144,
+                "x": 0,
+                "y": 300
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 146,
+                "x": 150,
+                "y": 150
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 148,
+                "x": 150,
+                "y": 0
+              }
+            },
+            {
+              "frame": {
+                "h": 148,
+                "w": 148,
+                "x": 0,
+                "y": 150
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "controllerIdToConfigId": {
+    "CANVAS_PARTICLES": "CANVAS_PARTICLES"
+  },
+  "controllers": {
+    "CANVAS_PARTICLES": {
+      "plugins": {}
+    }
+  }
+}

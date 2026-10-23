@@ -1,0 +1,23 @@
+{
+  "available.json": "available.c6122a45.json",
+  "releases.json": "releases.3d86e8f3.json",
+  "info.json": "info.c313558d.json",
+  "6.1.0-provider.js": "provider.f931855c.js",
+  "6.1.0-module.js": "module.17b7f214.js",
+  "6.2.0-provider.js": "provider.8541021f.js",
+  "6.2.0-module.js": "module.6c351886.js",
+  "5.0.1-provider.js": "provider.f6fb0d92.js",
+  "5.0.1-module.js": "module.376e2a2b.js",
+  "6.2.1-provider.js": "provider.90ba389a.js",
+  "6.2.1-module.js": "module.89ee55e4.js",
+  "6.3.1-provider.js": "provider.075d59c1.js",
+  "6.3.1-module.js": "module.a154775c.js",
+  "6.0.0-provider.js": "provider.26209f13.js",
+  "6.0.0-module.js": "module.4e14f415.js",
+  "next-provider.js": "provider.075d59c1.js",
+  "next-module.js": "module.a154775c.js",
+  "latest-provider.js": "provider.075d59c1.js",
+  "latest-module.js": "module.a154775c.js",
+  "6.3.0-provider.js": "provider.c2b1e735.js",
+  "6.3.0-module.js": "module.5061c14a.js"
+}

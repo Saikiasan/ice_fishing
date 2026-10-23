@@ -1,0 +1,76 @@
+{
+  "systemSize": { "width": 1920, "height": 1080 },
+  "fps": 60,
+  "fixedDt": false,
+  "randomSeed": "",
+  "version": "0.0.1",
+  "timeScale": 1,
+  "blendMode": "add",
+  "controllerConfigs": {
+    "PIXI_PARTICLES": {
+      "autoStart": true,
+      "loop": true,
+      "explosiveness": false,
+      "amount": 300,
+      "emissionDelay": 0.02,
+      "particlesPerWave": 5,
+      "particle": {
+        "colors": { "gradient": false, "mode": "Off", "colors": [] },
+        "damping": 0.08695700000000003,
+        "gravityVector": [0, 0],
+        "directionVector": [-2.0816681711721685e-17, 0],
+        "spread": 180,
+        "angularVelocity": {
+          "min": -0.0007366139275081288,
+          "max": 2.8608667454156844,
+          "curve": []
+        },
+        "initialRotation": {
+          "min": 0,
+          "max": 6.283185307179586,
+          "syncWithDirection": false
+        },
+        "opacity": {
+          "min": 1,
+          "max": 1,
+          "curve": [
+            { "point": [0, 1], "easing": "linear" },
+            { "point": [0.23, 0.37], "easing": "linear" },
+            { "point": [0.35, 0.77], "easing": "linear" },
+            { "point": [0.53, 0.18], "easing": "linear" },
+            { "point": [0.69, 0.44], "easing": "linear" },
+            { "point": [0.8, 0], "easing": "linear" },
+            { "point": [1, 0], "easing": "linear" }
+          ]
+        },
+        "lifetime": { "min": 0.65, "max": 1.3 },
+        "scale": {
+          "min": 0.1,
+          "max": 0.24999999999999997,
+          "curve": [
+            { "point": [0, 2], "easing": "linear" },
+            { "point": [1, 0], "easing": "easeOutCubic" }
+          ]
+        },
+        "initialVelocity": { "min": 0.1, "max": 521.8217391304348 },
+        "linearAcceleration": { "min": 0, "max": 0, "curve": [] },
+        "tangentialAcceleration": { "min": 0, "max": 0, "curve": [] },
+        "radialAcceleration": { "min": 10, "max": 50, "curve": [] }
+      },
+      "emitter": { "position": [0.21999999999999997, 0.78], "type": "point" }
+    }
+  },
+  "graphicsConfig": {
+    "PIXI_PARTICLES": {
+      "textures": [{
+        "zIndex": 0,
+        "textureId": "starrr_a9a7e3d8c205bc93",
+        "fps": 15,
+        "randomFrameStart": false,
+        "frames": [{ "frame": { "h": 100, "w": 100, "x": 0, "y": 0 } }]
+      }]
+    }
+  },
+  "controllerIdToConfigId": { "PIXI_PARTICLES": "PIXI_PARTICLES" },
+  "controllers": { "PIXI_PARTICLES": { "plugins": {} } }
+}

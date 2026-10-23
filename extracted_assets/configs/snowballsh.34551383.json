@@ -1,0 +1,124 @@
+{
+    "meta": {
+        "image": "snowball-shatterSprites.webp",
+        "size": {"w":1024,"h":2048},
+        "scale": "1"
+    },
+    "frames": {
+        "snowball-shatter-frame_040": {
+            "frame": {"x":1,"y":1,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_041": {
+            "frame": {"x":1,"y":321,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_042": {
+            "frame": {"x":1,"y":641,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_043": {
+            "frame": {"x":1,"y":961,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_044": {
+            "frame": {"x":1,"y":1281,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_045": {
+            "frame": {"x":1,"y":1601,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_046": {
+            "frame": {"x":328,"y":1,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_047": {
+            "frame": {"x":328,"y":321,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_048": {
+            "frame": {"x":328,"y":641,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_049": {
+            "frame": {"x":328,"y":961,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_050": {
+            "frame": {"x":328,"y":1281,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_051": {
+            "frame": {"x":328,"y":1601,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_052": {
+            "frame": {"x":655,"y":1,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_053": {
+            "frame": {"x":655,"y":321,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_054": {
+            "frame": {"x":655,"y":641,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        },
+        "snowball-shatter-frame_055": {
+            "frame": {"x":655,"y":961,"w":325,"h":318},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0,"y": 0,"w": 325,"h": 318},
+            "sourceSize": {"w":325,"h":318}
+        }
+    },
+    "animations": {
+        "anim": ["snowball-shatter-frame_040", "snowball-shatter-frame_041", "snowball-shatter-frame_042", "snowball-shatter-frame_043", "snowball-shatter-frame_044", "snowball-shatter-frame_045", "snowball-shatter-frame_046", "snowball-shatter-frame_047", "snowball-shatter-frame_048", "snowball-shatter-frame_049", "snowball-shatter-frame_050", "snowball-shatter-frame_051", "snowball-shatter-frame_052", "snowball-shatter-frame_053", "snowball-shatter-frame_054", "snowball-shatter-frame_055"]
+    }
+}

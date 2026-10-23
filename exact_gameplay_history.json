@@ -1,0 +1,285 @@
+[
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 4,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf2",
+    "wheelMultiplier": {
+      "value": 4,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "BigOranges"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "HugeReds"
+  },
+  {
+    "result": "HugeReds"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 10,
+      "level": "High"
+    }
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "BigOranges"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 7,
+      "level": "Medium"
+    }
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "LilBlues",
+    "wheelMultiplier": {
+      "value": 4,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "BigOranges"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 3,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "LilBlues"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 3,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 4,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "BigOranges"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "LilBlues"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "LilBlues"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2",
+    "wheelMultiplier": {
+      "value": 3,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "BigOranges"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "LilBlues"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1",
+    "wheelMultiplier": {
+      "value": 4,
+      "level": "Low"
+    }
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf2"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "HugeReds"
+  },
+  {
+    "result": "Leaf1"
+  },
+  {
+    "result": "BigOranges"
+  }
+]

@@ -1,0 +1,18 @@
+{
+ "skipper": {
+  "limitPlate.upTo": "Up to {currency}{payoutLimit}",
+  "betLimitGroup.darkLeaf": "Leaf 1",
+  "betLimitGroup.lightLeaf": "Leaf 2",
+  "betLimitGroup.smallFish": "Lil’ Blues",
+  "betLimitGroup.mediumFish": "Big Oranges",
+  "betLimitGroup.LargeFish": "Huge Reds",
+  "betOnAllBonuses.uppercase": "ALL{spacing}BONUSES",
+  "betLimitGroup.leaf1": "Leaf 1",
+  "betLimitGroup.leaf2": "Leaf 2",
+  "betLimitGroup.lilBlues": "Lil’ Blues",
+  "betLimitGroup.bigOranges": "Big Oranges",
+  "betLimitGroup.hugeReds": "Huge Reds",
+  "__rules": {},
+  "__assets": {}
+ }
+}
