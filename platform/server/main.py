@@ -1,7 +1,7 @@
 import secrets
 import time
 from typing import Dict, Any, Optional
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -134,7 +134,7 @@ def withdraw(req: WithdrawRequest, user: Dict[str, Any] = Depends(get_current_us
 # --- RGS Internal Seamless Wallet Endpoints ---
 
 @app.post("/api/v1/rgs/launch")
-def create_game_launch_token(game_id: str = "ice_fishing", user: Dict[str, Any] = Depends(get_current_user)):
+def create_game_launch_token(request: Request, game_id: str = "ice_fishing", user: Dict[str, Any] = Depends(get_current_user)):
     launch_token = f"gt_{secrets.token_hex(16)}"
     GAME_LAUNCH_TOKENS[launch_token] = {
         "user_id": user["id"],
@@ -143,10 +143,11 @@ def create_game_launch_token(game_id: str = "ice_fishing", user: Dict[str, Any] 
         "created_at": time.time(),
         "expires_at": time.time() + 300 # 5 min TTL
     }
+    client_host = request.headers.get("host", "localhost:8000").split(":")[0]
     return {
         "launch_token": launch_token,
         "game_id": game_id,
-        "ws_url": f"ws://localhost:8001/ws/{game_id}?token={launch_token}"
+        "ws_url": f"ws://{client_host}:8001/ws/{game_id}?token={launch_token}"
     }
 
 @app.post("/api/v1/rgs/verify_token")

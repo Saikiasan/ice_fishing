@@ -395,7 +395,7 @@ def build_pdf(filename="Ice_Fishing_Two_Account_Strategy_Guide.pdf"):
 
     story.append(Paragraph("C. Protocol Advance Signal (The 4-Second Window)", h2_style))
     story.append(Paragraph(
-        "Our telemetry reverse-engineering revealed that the game server broadcasts the winning physical sector in the <i>icefishing.wheelStopping</i> "
+        "Our telemetry analysis revealed that the game server broadcasts the winning physical sector in the <i>icefishing.wheelStopping</i> "
         "WebSocket packet exactly <b>4,000 milliseconds before visual landing</b> on the video feed. "
         "While bets are locked before wheel acceleration, our terminal HUD monitors incoming sector IDs in real-time, instantly displaying winning "
         "announcements 4 seconds ahead of the video stream to confirm trade outcomes ahead of client animation.",

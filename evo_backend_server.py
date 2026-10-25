@@ -183,6 +183,19 @@ class EvoHTTPHandler(SimpleHTTPRequestHandler):
                 self.send_json_response({"status": "error", "message": str(e)}, 400)
             return
 
+        # Print client log messages for debugging
+        if path.startswith("/log"):
+            try:
+                log_json = json.loads(body.decode("utf-8")) if body else {}
+                print(f"[CLIENT_LOG] {log_json}", flush=True)
+            except Exception as e:
+                print(f"[CLIENT_LOG_ERR] {body[:200]}", flush=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"status":"ok"}')
+            return
+
         # Handle Evolution logs and metrics silently
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
@@ -275,7 +288,25 @@ class EvoHTTPHandler(SimpleHTTPRequestHandler):
 
         # API: Config
         if path == "/config":
-            self.serve_json(os.path.join(base_dir, "config.json"))
+            config_file = os.path.join(base_dir, "config.json")
+            if os.path.exists(config_file):
+                with open(config_file, "r", encoding="utf-8") as f_cfg:
+                    cfg = json.load(f_cfg)
+                # Dynamically set host and wsUrl based on the incoming request Host header
+                req_host = self.headers.get("Host", f"127.0.0.1:{HTTP_PORT}").split(":")[0]
+                cfg["serverHost"] = f"{req_host}:{HTTP_PORT}"
+                cfg["wsUrl"] = f"ws://{req_host}:{WS_PORT}"
+                data = json.dumps(cfg, indent=2).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+                self.send_header("Pragma", "no-cache")
+                self.send_header("Expires", "0")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            self.serve_json(config_file)
             return
 
         # API: Player screenName
@@ -845,8 +876,8 @@ async def broadcast_game_loop():
         await asyncio.sleep(1.5)
 
 def start_http_server():
-    server = HTTPServer(("127.0.0.1", HTTP_PORT), EvoHTTPHandler)
-    print(f"[HTTP] Evolution Production Mirror & API Server on http://127.0.0.1:{HTTP_PORT}")
+    server = HTTPServer(("0.0.0.0", HTTP_PORT), EvoHTTPHandler)
+    print(f"[HTTP] Evolution Production Mirror & API Server on http://0.0.0.0:{HTTP_PORT}")
     server.serve_forever()
 
 main_loop = None
@@ -860,9 +891,9 @@ async def main():
     t.start()
 
     # Start WebSocket Server
-    print(f"[WS] Evolution Game WebSocket Server listening on ws://127.0.0.1:{WS_PORT}")
+    print(f"[WS] Evolution Game WebSocket Server listening on ws://0.0.0.0:{WS_PORT}")
     print(f"[REAL-PLAY] Starting persistent balance: ₹{game_control_state['balance']:.2f}")
-    async with websockets.serve(ws_handler, "127.0.0.1", WS_PORT):
+    async with websockets.serve(ws_handler, "0.0.0.0", WS_PORT):
         await broadcast_game_loop()
 
 if __name__ == "__main__":

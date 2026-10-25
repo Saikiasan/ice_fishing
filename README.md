@@ -1,197 +1,132 @@
-# 🎣 Evolution Ice Fishing: Reverse Engineering, Analytics & Predictor HUD
+# 🎣 Ice Fishing: Interactive Money-Wheel Game Platform & Simulation Engine
 
-A comprehensive technical documentation detailing the protocol reverse engineering, real-time WebSocket telemetry, statistical mechanics, and in-game HUD developed for Evolution's **"Ice Fishing"** live casino money-wheel game (`IceFishing000001`).
+A comprehensive web platform, game server implementation, and statistical simulation engine reproducing the popular **53-sector "Ice Fishing" money-wheel game** (`IceFishing000001`).
 
 ---
 
 ## 📋 Table of Contents
-1. [Architecture & System Overview](#1-architecture--system-overview)
-2. [Wheel Geometry & Mathematical Model](#2-wheel-geometry--mathematical-model)
-3. [WebSocket Protocol Reverse Engineering](#3-websocket-protocol-reverse-engineering)
-4. [Real-Time Advance Latency (The 4-Second Window)](#4-real-time-advance-latency-the-4-second-window)
-5. [Predictability & Physics Analysis](#5-predictability--physics-analysis)
-6. [Tools & Deliverables](#6-tools--deliverables)
-   - [Tampermonkey In-Game Terminal HUD](#a-tampermonkey-in-game-terminal-hud)
-   - [Python Real-Time Telemetry Engine](#b-python-real-time-telemetry-engine)
-   - [Datasets & Exporters](#c-datasets--exporters)
-7. [Installation & Usage Guide](#7-installation--usage-guide)
+1. [Project Overview](#1-project-overview)
+2. [⚡ Frictionless Quick Start](#2-frictionless-quick-start)
+3. [Architecture & Components](#3-architecture--components)
+4. [Wheel Geometry & Mathematical Model](#4-wheel-geometry--mathematical-model)
+5. [Round Lifecycle & State Machine](#5-round-lifecycle--state-machine)
+6. [Simulation & Analytics Tools](#6-simulation--analytics-tools)
+7. [Enterprise Ledger & Platform Architecture](#7-enterprise-ledger--platform-architecture)
+8. [License](#8-license)
 
 ---
 
-## 1. Architecture & System Overview
+## 1. Project Overview
 
-The system captures, analyzes, and visualizes live wheel telemetry using two parallel architectures:
+This repository provides a complete, self-contained educational implementation and testbench of a live money-wheel casino game. It includes:
+- **Full-Stack Playable Platform**: Modern web lobby, user authentication, double-entry financial ledger, and Remote Gaming Server (RGS).
+- **Standalone Game Simulation Server**: High-fidelity WebSocket server simulating real-time game rounds, dynamic multiplier assignments, and spin physics.
+- **Statistical Analytics & Datasets**: Benchmarking tools analyzing sector hit rates, volatility, and player return-to-player (RTP) models.
+- **Zero-Friction Staging**: Turnkey launch scripts ensuring instant local operation with zero configuration needed.
 
-```
-[ Evolution Game Servers ]
-           │
-           │  (WSS Encrypted Stream)
-           ▼
-[ Chrome Browser (Ice Fishing Tab) ]
-   ├── [ Vanilla Game Engine ] (Renders WebGL & Video feed)
-   └── [ Tampermonkey Stealth Proxy ]
-           ├── [ Floating Terminal HUD ] (Directly overlays live advice & early results)
-           └── (Optional Local Relay: ws://127.0.0.1:8765)
-                   ▼
-           [ Python Real-Time Engine (live_engine.py) ]
-                   ├── Spin Physics / Displacement Tracker
-                   ├── Virtual Bankroll Strategy Simulator
-                   └── Dataset Persistence (ice_fishing_dataset.json)
+---
+
+## 2. ⚡ Frictionless Quick Start
+
+To launch the complete platform locally with a single command:
+
+```bat
+.\platform\run_platform.bat
 ```
 
----
+This automatically starts all 3 core services in their own terminal windows:
+- **Web Lobby & Client**: `http://localhost:3000`
+- **Platform Core & Wallet API**: `http://localhost:8000` (FastAPI backend + SQLite ledger)
+- **RGS Game Engine**: `http://localhost:8001` (Game mechanics & spin resolution)
 
-## 2. Wheel Geometry & Mathematical Model
-
-The Ice Fishing money wheel is comprised of **53 physical sectors** (numbered 0 to 52). 
-
-### Empirical vs. Theoretical Distribution (Benchmarked over 81 live rounds)
-
-| Internal Key | Display Name | Role | Sector Count | Theoretical Prob. | Empirical Prob. (81 Spins) | Base Payout |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| `Leaf1` | **Light Leaf (L1)** | Base Safe | ~24 | 45.3% | **50.6%** | 1:1 (or up to 10x) |
-| `Leaf2` | **Dark Leaf (L2)** | Base Safe | ~22 | 41.5% | **32.1%** | 1:1 (or up to 10x) |
-| `LilBlues` | **Lil' Blues** | Fish Bonus | 4 | 7.5% | **6.2%** | Bonus (up to 100x+) |
-| `BigOranges` | **Big Oranges** | Fish Bonus | 2 | 3.8% | **7.4%** | Bonus (up to 500x+) |
-| `HugeReds` | **Huge Reds** | Jackpot Fish | 1 | 1.9% | **3.7%** | Bonus (up to 10,000x) |
-| **Total** | | | **53** | **100.0%** | **100.0%** | |
-
-> **Key Statistical Rule:**  
-> **Leaves account for ~86.8% of the wheel.** Fish bonus rounds land only ~13.2% of the time (approx. 1 in every 7 to 8 spins).
+Once started, simply open **`http://localhost:3000`** in your browser.
 
 ---
 
-## 3. WebSocket Protocol Reverse Engineering
+## 3. Architecture & Components
 
-The game connects to the following endpoint:
-```text
-wss://ezugi.evo-games.com/public/icefishing/player/game/IceFishing000001/socket?messageFormat=json&EVOSESSIONID=...
+```
+                    ┌─────────────────────────┐
+                    │       Web Browser       │
+                    │   http://localhost:3000 │
+                    └────────────┬────────────┘
+                                 │
+                 ┌───────────────┴───────────────┐
+                 │                               │
+                 ▼                               ▼
+      ┌─────────────────────┐         ┌─────────────────────┐
+      │  Platform Core API  │         │   RGS Game Server   │
+      │   (FastAPI :8000)   │◄───────►│   (FastAPI :8001)   │
+      └──────────┬──────────┘         └─────────────────────┘
+                 │
+                 ▼
+      ┌─────────────────────┐
+      │ Double-Entry Ledger │
+      │ (platform_core.db)  │
+      └─────────────────────┘
 ```
 
-### Event Lifecycle per Round
-
-1. **`icefishing.betsOpen` (T = 0s)**  
-   Betting window opens (~7 seconds). Transmits starting position and rotation direction:
-   ```json
-   {
-     "type": "icefishing.betsOpen",
-     "args": {
-       "gameId": "18dec54ddcd2fdcad6a46da8",
-       "gameNumber": "17:50:39",
-       "timeRemaining": 6934,
-       "spinInfo": {
-         "sector": 41,
-         "speed": "Medium",
-         "direction": "Clockwise"
-       }
-     }
-   }
-   ```
-
-2. **`icefishing.betsClosed` (T = 7s)**  
-   Server locks all bets. No further chips are accepted.
-
-3. **`icefishing.wheelSpinning` (T = 10.5s)**  
-   Server designates random multipliers onto specific physical wheel sectors:
-   ```json
-   {
-     "type": "icefishing.wheelSpinning",
-     "args": {
-       "leafWheelMultipliers": {
-         "11": { "result": "Leaf1", "multiplier": { "value": 4, "level": "Low" } },
-         "28": { "result": "Leaf2", "multiplier": { "value": 5, "level": "Low" } }
-       }
-     }
-   }
-   ```
-
-4. **`icefishing.wheelStopping` (T = 14s)**  
-   Server declares the confirmed winning sector **4 seconds before visual landing**:
-   ```json
-   {
-     "type": "icefishing.wheelStopping",
-     "args": {
-       "sector": 39,
-       "timeRemaining": 4000
-     }
-   }
-   ```
-
-5. **`icefishing.spinHistory` (Post-Round)**  
-   Server broadcasts the updated 73-spin sliding historical ledger.
+### Core Subsystems:
+1. **Player Web Lobby (`platform/client`)**: Clean HTML5/ES6 client interface with real-time balance updates, chip placement, and game launching.
+2. **Platform Server (`platform/server/main.py`)**: Manages player accounts, secure session tokens, wallet balances, and game launch orchestration.
+3. **Double-Entry Financial Ledger (`platform/server/ledger.py`)**: ACID-compliant SQLite ledger ensuring zero balance drifting or floating-point discrepancies.
+4. **Remote Gaming Server (RGS) (`platform/rgs/rgs_server.py`)**: Manages the 53-sector wheel RNG, bonus multiplier distributions, and round settlement.
+5. **Standalone Simulation Server (`evo_backend_server.py`)**: Independent WebSocket game server emulating real-time wheel spins and event streaming for testing.
 
 ---
 
-## 4. Real-Time Advance Latency (The 4-Second Window)
+## 4. Wheel Geometry & Mathematical Model
 
-Because video encoding, WebRTC packet buffering, and physical wheel friction take time to render on client screens, Evolution broadcasts `icefishing.wheelStopping` as soon as the optical flapper sensors lock the physical stop.
+The Ice Fishing money wheel is comprised of **53 physical sectors** (numbered 0 to 52):
 
-* **Client Video Display:** The wheel takes an additional **4,000 milliseconds** (`wheel_slow_down_duration`) to visually come to rest.
-* **Our HUD Advantage:** The HUD parses the incoming packet instantly and displays `>>> SECTOR X! <<<` in glowing neon green **4 seconds ahead** of the video broadcast.
+| Symbol Key | Display Name | Role | Sector Count | Probability | Base Payout |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| `Leaf1` | **Light Leaf (L1)** | Base Safe | ~24 | **45.3%** | 1:1 (or up to 10x with multiplier) |
+| `Leaf2` | **Dark Leaf (L2)** | Base Safe | ~22 | **41.5%** | 1:1 (or up to 10x with multiplier) |
+| `LilBlues` | **Lil' Blues** | Fish Bonus | 4 | **7.5%** | Interactive mini-game (up to 100x+) |
+| `BigOranges` | **Big Oranges** | Fish Bonus | 2 | **3.8%** | High mini-game (up to 500x+) |
+| `HugeReds` | **Huge Reds** | Jackpot Fish | 1 | **1.9%** | Super bonus game (up to 10,000x) |
+| **Total** | | | **53** | **100.0%** | |
 
----
-
-## 5. Predictability & Physics Analysis
-
-We analyzed consecutive spins in [`ice_fishing_dataset.json`](file:///d:/Codes/ice_fishing/ice_fishing_dataset.json) to measure modular displacement ($\Delta = \text{Landed} - \text{Start} \pmod{54}$):
-
-* **Clockwise Spins ($\Delta$):** `[28, 1, 52, 31, 45, 31, 47, 38, 41, 43, 27]`  
-  - Mean: **34.9 sectors** | Standard Deviation: **$\pm 14.8$**
-* **Counter-Clockwise Spins ($\Delta$):** `[45, 35, 42, 22, 52, 12, 20, 10, 26, 35]`  
-  - Mean: **29.9 sectors** | Standard Deviation: **$\pm 13.9$**
-
-### The Technical Conclusion on Prediction:
-1. **No Dealer "Signature":** The variance spans almost the entire wheel circumference (1 to 52 sectors). Physical pin resistance and variable motor force eliminate deterministic mechanical prediction.
-2. **Timing Barrier:** `betsClosed` executes at $T=0$, whereas multipliers and physical deceleration occur at $T \ge 3.5s$.
-3. **Statistically Sound Play:** The optimal strategy is not chasing single numbers, but:
-   - Maintaining primary coverage on **Light Leaf** and **Dark Leaf** (~83% cumulative hit frequency).
-   - Using the **Drought Tracker** to avoid burning bankroll on rare fish during prolonged dry spells ($>40$ rounds).
+> **Key Game Mechanics:**
+> - Safe Leaf sectors cover **86.8%** of the wheel, providing steady, lower-volatility outcomes.
+> - Fish bonus mini-games occur on average once every **7 to 8 spins** (~13.2%).
 
 ---
 
-## 6. Tools & Deliverables
+## 5. Round Lifecycle & State Machine
 
-### A. Tampermonkey In-Game Terminal HUD (`tampermonkey_hud.js`)
-* **Design:** High-contrast pitch-black and neon-green (`#00ff66`) terminal theme.
-* **Live Probability Matrix:** Displays exact real-time percentages for all 5 outcomes.
-* **Next Round Predictor (Top 3 Picks):** Ranks the top 3 optimal selections before betting closes.
-* **Drought Tracker:** Displays rounds elapsed since `Huge Reds`, `Big Oranges`, and `Lil' Blues` last landed.
-* **Advance Alert:** Flashes winning sector 4 seconds early.
+Each spin round progresses through standard lifecycle events:
 
-### B. Python Real-Time Engine (`live_engine.py`)
-* WebSocket server on `ws://127.0.0.1:8765`.
-* Calculates rolling displacement deltas for clockwise/counterclockwise spins.
-* Runs a live **Virtual Bankroll Strategy Simulator** (₹1,000 credit) tracking real-time P&L and drawdowns.
-* Automatically writes completed rounds to persistent JSON storage.
-
-### C. Datasets & Exporters
-* [`exact_gameplay_history.csv`](file:///d:/Codes/ice_fishing/exact_gameplay_history.csv): 81 verified rounds with exact spin index, multipliers, and display names.
-* [`ice_fishing_dataset.json`](file:///d:/Codes/ice_fishing/ice_fishing_dataset.json): Raw round data including start sector, direction, and winning sector.
-* [`export_exact_spins.py`](file:///d:/Codes/ice_fishing/export_exact_spins.py): Python utility to export game history to CSV.
+1. **`betsOpen` (T = 0s)**: Betting window opens (~7 seconds). Transmits starting wheel sector and rotation direction.
+2. **`betsClosed` (T = 7s)**: Wagering locks. Player wagers are validated against ledger balances.
+3. **`wheelSpinning` (T = 10.5s)**: Multipliers are assigned dynamically across random leaf or bonus sectors.
+4. **`gameResult` / Settlement (T = 15s)**: Wheel settles on the winning sector; multiplier is calculated; winning credits are posted to player wallets.
 
 ---
 
-## 7. Installation & Usage Guide
+## 6. Simulation & Analytics Tools
 
-### Running the Terminal In-Game HUD:
-1. Install the [Tampermonkey](https://www.tampermonkey.net/) extension in Chrome.
-2. Create a new user script.
-3. Paste the contents of [`tampermonkey_hud.js`](file:///d:/Codes/ice_fishing/tampermonkey_hud.js).
-4. Save with `Ctrl + S` and refresh the Ice Fishing game tab.
+The repository includes utilities to inspect game data, test bankroll strategies, and verify RNG fairness:
 
-### Running the Python Live Engine (Optional):
-1. In PowerShell:
-   ```powershell
-   cd d:\Codes\ice_fishing
-   python live_engine.py
-   ```
-2. The engine will listen on `ws://127.0.0.1:8765` and log live stats and strategy P&L.
+- **`analyze_history.py`**: Computes empirical hit rates and variance over captured rounds.
+- **`analyze_todays_spins.py`**: Generates daily RTP benchmarks and bonus round occurrence intervals.
+- **`export_exact_spins.py`**: Formats and exports historical round records to clean CSV/JSON formats.
+- **`direct_listener.py`**: Real-time WebSocket listener to observe and log live round event streams.
 
 ---
 
-## 8. Author & License
+## 7. Enterprise Ledger & Platform Architecture
 
-Developed and maintained by **Ankit Saikia**.
+Detailed architectural specifications and production-ready designs are documented in:
+- [`00_master_solution_plan.md`](file:///d:/Codes/ice_fishing/financial%20application%20solution%20development%20and%20startup%20phase/00_master_solution_plan.md)
+- [`01_system_architecture_and_data_flow.md`](file:///d:/Codes/ice_fishing/financial%20application%20solution%20development%20and%20startup%20phase/01_system_architecture_and_data_flow.md)
+- [`02_executive_dashboard_and_realtime_kpis.md`](file:///d:/Codes/ice_fishing/financial%20application%20solution%20development%20and%20startup%20phase/02_executive_dashboard_and_realtime_kpis.md)
+- [`03_payments_gateway_settlement_and_treasury.md`](file:///d:/Codes/ice_fishing/financial%20application%20solution%20development%20and%20startup%20phase/03_payments_gateway_settlement_and_treasury.md)
+- [`04_risk_fraud_and_anomaly_detection.md`](file:///d:/Codes/ice_fishing/financial%20application%20solution%20development%20and%20startup%20phase/04_risk_fraud_and_anomaly_detection.md)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for full details.
+---
 
+## 8. License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
